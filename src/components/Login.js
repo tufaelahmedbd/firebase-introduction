@@ -1,14 +1,31 @@
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import {
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import app from "../firebase/firebase.init";
 
 const providerGoogle = new GoogleAuthProvider();
+const providerGithub = new GithubAuthProvider();
 const auth = getAuth(app);
 const Login = () => {
   const navigate = useNavigate();
-  /*--google login--*/
+  //--google login--
   const handleGoogleSignIn = () => {
     signInWithPopup(auth, providerGoogle)
+      .then((data) => {
+        console.log(data.user);
+        navigate("/profile");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  // --github login--
+  const handleGithubSignIn = () => {
+    signInWithPopup(auth, providerGithub)
       .then((data) => {
         console.log(data.user);
         navigate("/profile");
@@ -28,6 +45,12 @@ const Login = () => {
           className="google-sign-in bg-gray-700 text-white h-14 w-96 rounded-md font-medium hover:bg-[#FED049] duration-300 "
         >
           Login with Google
+        </button>
+        <button
+          onClick={handleGithubSignIn}
+          className="google-sign-in bg-gray-700 text-white h-14 w-96 rounded-md font-medium hover:bg-[#FED049] duration-300 "
+        >
+          Login with Github
         </button>
       </div>
     </div>

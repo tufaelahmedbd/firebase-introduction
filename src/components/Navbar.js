@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import { IoLogoFirebase } from "react-icons/io5";
 
 const Navbar = ({ user }) => {
   return (
     <nav className="navbar flex justify-between container mx-auto items-center py-5 border-b">
-      <Link to="/" className=" font-medium text-[#FED049]">
+      <Link to="/" className=" font-medium text-[#FED049] flex items-center">
+        <IoLogoFirebase />
         Firebase Intro
       </Link>
       <ul className="links flex gap-10">
