@@ -8,8 +8,10 @@ import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import NotFound from "./components/NotFound";
 import Profile from "./components/Profile";
+import RequireAuth from "./components/RequireAuth";
 import Register from "./components/Register";
 import { useEffect, useState } from "react";
+import RequireAuth2 from "./components/RequireAuth2";
 
 const auth = getAuth(app);
 const App = () => {
@@ -31,10 +33,28 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route
           path="/profile"
-          element={<Profile user={user} setUser={setUser} />}
+          element={
+            <RequireAuth user={user}>
+              <Profile user={user} setUser={setUser} />
+            </RequireAuth>
+          }
         />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route
+          path="/login"
+          element={
+            <RequireAuth2 user={user}>
+              <Login user={user} setUser={setUser} />
+            </RequireAuth2>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <RequireAuth2 user={user}>
+              <Register />
+            </RequireAuth2>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
