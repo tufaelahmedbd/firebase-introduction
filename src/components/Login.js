@@ -1,6 +1,7 @@
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
+  FacebookAuthProvider,
   getAuth,
   signInWithPopup,
 } from "firebase/auth";
@@ -9,6 +10,7 @@ import app from "../firebase/firebase.init";
 
 const providerGoogle = new GoogleAuthProvider();
 const providerGithub = new GithubAuthProvider();
+const providerFacebook = new FacebookAuthProvider();
 const auth = getAuth(app);
 const Login = () => {
   const navigate = useNavigate();
@@ -34,6 +36,17 @@ const Login = () => {
         console.log(error);
       });
   };
+  //--facebook login--
+  const handleFacebookSignIn = () => {
+    signInWithPopup(auth, providerFacebook)
+      .then((data) => {
+        console.log(data.user);
+        navigate("/profile");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="login container mx-auto py-10">
       <h2 className="section-title text-center text-4xl text-gray-500 mb-10">
@@ -51,6 +64,12 @@ const Login = () => {
           className="google-sign-in bg-gray-700 text-white h-14 w-96 rounded-md font-medium hover:bg-[#FED049] duration-300 "
         >
           Login with Github
+        </button>
+        <button
+          onClick={handleFacebookSignIn}
+          className="google-sign-in bg-gray-700 text-white h-14 w-96 rounded-md font-medium hover:bg-[#FED049] duration-300 "
+        >
+          Login with Facebook
         </button>
       </div>
     </div>
