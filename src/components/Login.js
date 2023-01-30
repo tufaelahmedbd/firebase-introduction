@@ -5,14 +5,14 @@ import {
   getAuth,
   signInWithPopup,
 } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import app from "../firebase/firebase.init";
 
 const providerGoogle = new GoogleAuthProvider();
 const providerGithub = new GithubAuthProvider();
 const providerFacebook = new FacebookAuthProvider();
 const auth = getAuth(app);
-const Login = () => {
+const Login = ({ user }) => {
   const navigate = useNavigate();
   //--google login--
   const handleGoogleSignIn = () => {
@@ -71,6 +71,37 @@ const Login = () => {
         >
           Login with Facebook
         </button>
+        <form className="flex flex-col gap-3 items-start mt-5">
+          <div className="form-control flex flex-col gap-2">
+            <label htmlFor="email">Email Address</label>
+            <input
+              type="text"
+              id="email"
+              placeholder="Enter your email"
+              className=" border py-3 px-5 rounded-md w-[20rem]"
+            />
+          </div>
+          <div className="form-control flex flex-col gap-2">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter your password"
+              className=" border py-3 px-5 rounded-md w-[20rem]"
+            />
+          </div>
+          <input
+            type="submit"
+            value="Login"
+            className=" bg-sky-500 w-full py-3 text-white font-medium rounded-md hover:bg-sky-600 duration-300 cursor-pointer"
+          />
+          <p>
+            Don't have an account?{" "}
+            <Link to="/register" className=" text-sky-500 hover:underline">
+              Register
+            </Link>
+          </p>
+        </form>
       </div>
     </div>
   );

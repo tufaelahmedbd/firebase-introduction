@@ -9,7 +9,7 @@ const Profile = ({ user, setUser }) => {
       .then(() => {
         console.log("Signed out");
         setUser("");
-        navigate("/login");
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);
